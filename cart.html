@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Time Pay</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Computer Shopping Bag</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            /* Basic Reset & Body Styles */
+            body {
+                margin: 0;
+                font-family: 'Inter', sans-serif;
+                background-color: #f0f2f5; /* Light gray background */
+                color: #333;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+    
+            /* General Container Styling */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+    
+            /* Header Styling */
+            /* head {
+                background-color: #ffffff;
+                padding: 15px 20px;
+                border-bottom: 1px solid #e0e0e0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                border-radius: 8px; /* Rounded corners for header */
+                margin-bottom: 20px;
+            } */
+    
+            .header-left, .header-right {
+                display: flex;
+                align-items: center;
+            }
+    
+            .logo {
+                font-size: 24px;
+                font-weight: 700;
+                color: #4a90e2; /* A shade of blue for branding */
+                margin-right: 20px;
+            }
+    
+            .search-bar {
+                position: relative;
+                flex-grow: 1; /* Allows search bar to take available space */
+                max-width: 400px; /* Limit search bar width */
+            }
+    
+            .search-bar input {
+                width: 100%;
+                padding: 10px 15px 10px 40px; /* Left padding for icon */
+                border: 1px solid #ddd;
+                border-radius: 20px; /* Pill shape */
+                font-size: 16px;
+                outline: none;
+                transition: border-color 0.3s ease;
+            }
+    
+            .search-bar input:focus {
+                border-color: #4a90e2;
+            }
+    
+            .search-bar .icon {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #888;
+            }
+    
+            .cart-icon {
+                font-size: 24px;
+                color: #555;
+                margin-left: 20px;
+                cursor: pointer;
+            }
+    
+            /* Main Content Layout */
+            main {
+                display: flex;
+                gap: 20px;
+                padding: 20px;
+                align-items: flex-start; /* Align items to the top */
+            }
+    
+            .shopping-bag-section {
+                flex: 2; /* Takes more space */
+                background-color: #ffffff;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            }
+    
+            .shopping-bag-section h2 {
+                font-size: 28px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                color: #333;
+            }
+    
+            .summary-section {
+                flex: 1; /* Takes less space */
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+    
+            /* Product List Styling */
+            .product-list {
+                display: flex;
+                flex-direction: column;
+            }
+    
+            .product-item {
+                display: flex;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: 1px solid #eee;
+                gap: 20px;
+            }
+    
+            .product-item:last-child {
+                border-bottom: none; /* No border for the last item */
+            }
+    
+            .product-image {
+                width: 100px;
+                height: 100px;
+                border-radius: 8px;
+                object-fit: cover;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    
+            .product-details {
+                flex: 1; /* Allows details to take available space */
+            }
+    
+            .product-details h3 {
+                font-size: 18px;
+                font-weight: 600;
+                margin: 0 0 5px 0;
+                color: #333;
+            }
+    
+            .product-details p {
+                font-size: 14px;
+                color: #666;
+                margin: 0;
+            }
+    
+            .product-price, .product-total {
+                font-size: 18px;
+                font-weight: 600;
+                color: #4a90e2;
+                width: 100px; /* Fixed width for price/total columns */
+                text-align: right;
+            }
+    
+            .product-quantity {
+                display: flex;
+                align-items: center;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                overflow: hidden;
+                width: 100px; /* Fixed width for quantity control */
+            }
+    
+            .product-quantity button {
+                background-color: #f7f7f7;
+                border: none;
+                padding: 8px 12px;
+                font-size: 16px;
+                cursor: pointer;
+                outline: none;
+                transition: background-color 0.2s ease;
+            }
+    
+            .product-quantity button:hover {
+                background-color: #e0e0e0;
+            }
+    
+            .product-quantity input {
+                width: 40px;
+                text-align: center;
+                border: none;
+                outline: none;
+                font-size: 16px;
+                -moz-appearance: textfield; /* Hide arrows for Firefox */
+            }
+    
+            /* Hide arrows for Chrome, Safari, Edge */
+            .product-quantity input::-webkit-outer-spin-button,
+            .product-quantity input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+    
+            /* Summary Sections (Shipping, Coupon, Cart Total) */
+            .summary-card {
+                background-color: #ffffff;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            }
+    
+            .summary-card h3 {
+                font-size: 20px;
+                font-weight: 600;
+                margin-top: 0;
+                margin-bottom: 15px;
+                color: #333;
+            }
+    
+            .form-group {
+                margin-bottom: 15px;
+            }
+    
+            .form-group label {
+                display: block;
+                font-size: 14px;
+                color: #555;
+                margin-bottom: 5px;
+            }
+    
+            .form-group input, .form-group select {
+                width: calc(100% - 22px); /* Account for padding and border */
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 16px;
+                outline: none;
+                transition: border-color 0.3s ease;
+            }
+    
+            .form-group input:focus, .form-group select:focus {
+                border-color: #4a90e2;
+            }
+    
+            .location-inputs {
+                display: flex;
+                gap: 10px;
+            }
+    
+            .location-inputs input {
+                flex: 1;
+            }
+    
+            .btn {
+                background-color: #4a90e2;
+                color: #ffffff;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.1s ease;
+                width: 100%;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    
+            .btn:hover {
+                background-color: #357ABD;
+                transform: translateY(-1px);
+            }
+    
+            .btn:active {
+                transform: translateY(0);
+            }
+    
+            .coupon-section p {
+                font-size: 14px;
+                color: #777;
+                margin-bottom: 15px;
+            }
+    
+            .cart-total-section .total-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+    
+            .cart-total-section .total-row.final {
+                font-size: 20px;
+                font-weight: 700;
+                color: #333;
+                border-top: 1px solid #eee;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+    
+            .cart-total-section .total-row span:last-child {
+                font-weight: 600;
+            }
+    
+            /* Footer Info Cards */
+            .info-cards-section {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+                gap: 20px;
+                padding: 40px 20px;
+                background-color: #f0f2f5;
+            }
+    
+            .info-card {
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+                text-align: center;
+                flex: 1; /* Distribute space */
+                min-width: 220px; /* Minimum width for cards */
+                max-width: 280px; /* Maximum width for cards */
+                transition: transform 0.2s ease;
+            }
+    
+            .info-card:hover {
+                transform: translateY(-5px);
+            }
+    
+            .info-card .icon {
+                font-size: 36px;
+                color: #4a90e2;
+                margin-bottom: 10px;
+            }
+    
+            .info-card h4 {
+                font-size: 18px;
+                margin: 0 0 8px 0;
+                color: #333;
+            }
+    
+            .info-card p {
+                font-size: 14px;
+                color: #666;
+                margin: 0;
+            }
+    
+            /* Responsive Design */
+            @media (max-width: 992px) {
+                main {
+                    flex-direction: column;
+                }
+    
+                .shopping-bag-section, .summary-section {
+                    flex: none; /* Remove flex grow */
+                    width: 100%;
+                }
+            }
+    
+            @media (max-width: 768px) {
+                header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 15px;
+                }
+    
+                .header-left, .header-right {
+                    width: 100%;
+                    justify-content: space-between;
+                }
+    
+                .search-bar {
+                    width: 100%;
+                    max-width: none;
+                    margin-top: 10px;
+                }
+    
+                .product-item {
+                    flex-wrap: wrap; /* Allow items to wrap */
+                    justify-content: center; /* Center items when wrapped */
+                    text-align: center;
+                }
+    
+                .product-image {
+                    margin-bottom: 10px;
+                }
+    
+                .product-details, .product-price, .product-quantity, .product-total {
+                    flex-basis: 100%; /* Take full width on small screens */
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+    
+                .product-quantity {
+                    margin: 0 auto; /* Center quantity control */
+                }
+    
+                .product-total {
+                    padding-top: 10px;
+                    border-top: 1px solid #eee;
+                }
+    
+                .info-cards-section {
+                    flex-direction: column;
+                    align-items: center;
+                }
+    
+                .info-card {
+                    width: 90%; /* Make cards wider on small screens */
+                    max-width: 400px;
+                }
+            }
+    
+            @media (max-width: 480px) {
+                .container, main, header, .info-cards-section {
+                    padding: 15px;
+                }
+    
+                .shopping-bag-section, .summary-card {
+                    padding: 15px;
+                }
+    
+                .product-item {
+                    padding: 15px 0;
+                }
+    
+                .logo {
+                    font-size: 20px;
+                }
+    
+                .search-bar input {
+                    font-size: 14px;
+                    padding: 8px 12px 8px 35px;
+                }
+    
+                .search-bar .icon {
+                    left: 12px;
+                    font-size: 18px;
+                }
+    
+                .cart-icon {
+                    font-size: 20px;
+                }
+    
+                .product-image {
+                    width: 80px;
+                    height: 80px;
+                }
+    
+                .product-details h3 {
+                    font-size: 16px;
+                }
+    
+                .product-details p {
+                    font-size: 12px;
+                }
+    
+                .product-price, .product-total {
+                    font-size: 16px;
+                }
+    
+                .product-quantity button, .product-quantity input {
+                    font-size: 14px;
+                    padding: 6px 10px;
+                }
+    
+                .summary-card h3 {
+                    font-size: 18px;
+                }
+    
+                .form-group input, .form-group select, .btn {
+                    font-size: 14px;
+                    padding: 10px;
+                }
+    
+                .cart-total-section .total-row {
+                    font-size: 14px;
+                }
+    
+                .cart-total-section .total-row.final {
+                    font-size: 18px;
+                }
+    
+                .info-card h4 {
+                    font-size: 16px;
+                }
+    
+                .info-card p {
+                    font-size: 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <header>
+        <div class="logo"><img src="images/LOGO4.png" alt="" width="50px" class="bag" style="cursor: pointer;"></div>
+        <div class="navbar">
+          <ul>  
+            <li><a href="index.html" class="navLink " >Home</a></li>
+            <li><a href="buy.html" class="navLink">Shop</a></li>
+            <li><a href="about us.html" class="navLink">AboutUs</a></li>
+            <li><a href="contact.html" class="navLink">Contact</a></li>
+            <li><a href="sign up.html" class="navLink">SignUp</a></li>
+          </ul>
+        </div>
+        
+        <div class="cart">
+<a href="cart.html" id="cart"><img src="images/logo 1.png" alt="" width="20px" class="my-bag" ><span style="text-align: none; text-decoration: none;background-color: red; padding: 3px; border-radius:20px; height: 2px; ">0</span></a>
+</div>
+    
+      </header>
+      
+        <head class="container">
+            <div class="header-left">
+                <div class="logo">CompStore</div>
+                <div class="search-bar">
+                    <i class="fas fa-search icon"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+            </div>
+            <div class="header-right">
+                <i class="fas fa-shopping-bag cart-icon"></i>
+            </div>
+        </head>
+    
+        <main class="container">
+            <div class="shopping-bag-section">
+                <h2>Shopping Bag <span id="item-count">(2 Items in your bag)</span></h2>
+                <div class="product-list" id="product-list">
+                    <div class="product-item" data-price="1200.00">
+                        
+                        <img src="images/no-pc.png" alt="Mechanical Keyboard" class="product-image">
+                        <div class="product-details">
+                            <h3>Gaming Laptop X15</h3>
+                            <p>High-performance, 16GB RAM, 1TB SSD</p>
+                            <p>Color: Black | Model: Pro-Gaming</p>
+                        </div>
+                        <div class="product-price">$1200.00</div>
+                        <div class="product-quantity">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="quantity-input">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        <div class="product-total">$1200.00</div>
+                    </div>
+    
+                    <div class="product-item" data-price="250.00">
+                        <img src="images/download__1_-removebg-preview.png" alt="Curved Monitor" class="product-image">
+                        <div class="product-details">
+                            <h3>Editing Computer</h3>
+                            <p>QHD Resolution, 144Hz Refresh Rate</p>
+                            <p>Color: Black | Model: UltraView</p>
+                        </div>
+                        <div class="product-price">$250.00</div>
+                        <div class="product-quantity">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="quantity-input">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        <div class="product-total">$250.00</div>
+                    </div>
+    
+                    <div class="product-item" data-price="1000.00">
+                        <img src="images/gaming.jpg" alt="Gaming Laptop" class="product-image">
+                        <div class="product-details">
+                            <h3>Mechanical Gaming Computer</h3>
+                            <p>RGB Backlit, Cherry MX Red Switches</p>
+                            <p>Color: Grey | Model: MechPro</p>
+                        </div>
+                        <div class="product-price">$1000.00</div>
+                        <div class="product-quantity">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="quantity-input">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        <div class="product-total">$1000.00</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="summary-section">
+                <div class="shipping-section summary-card">
+                    <h3>Calculated Shipping</h3>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option value="USA">United States</option>
+                            <option value="CAN">Canada</option>
+                            <option value="GBR">United Kingdom</option>
+                            <option value="AUS">Australia</option>
+                        </select>
+                    </div>
+                    <div class="location-inputs">
+                        <div class="form-group">
+                            <label for="state">State / City</label>
+                            <input type="text" id="state" placeholder="State / City">
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">Zip Code</label>
+                            <input type="text" id="zip" placeholder="Zip Code">
+                        </div>
+                    </div>
+                    <button class="btn">Update</button>
+                </div>
+    
+                <div class="coupon-section summary-card">
+                    <h3>Coupon Code</h3>
+                    <p>If you have a coupon code, please apply it below.</p>
+                    <div class="form-group">
+                        <input type="text" id="coupon-code" placeholder="Coupon Code">
+                    </div>
+                    <button class="btn">Apply</button>
+                </div>
+    
+                <div class="cart-total-section summary-card">
+                    <h3>Cart Total</h3>
+                    <div class="total-row">
+                        <span>Cart Subtotal</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping</span>
+                        <span id="cart-shipping">Free</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Discount</span>
+                        <span id="cart-discount">$0.00</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Cart Total</span>
+                        <span id="final-cart-total">$0.00</span>
+                    </div>
+                    <button class="btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </main>
+    
+        <section class="info-cards-section">
+            <div class="info-card">
+                <i class="fas fa-truck icon"></i>
+                <h4>Free Shipping</h4>
+                <p>When you spend $50+</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone-alt icon"></i>
+                <h4>Call Us Anytime</h4>
+                <p>+250 788 123 456</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-comments icon"></i>
+                <h4>Chat With Us</h4>
+                <p>We offer 24-hour chat support</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-gift icon"></i>
+                <h4>Gift Cards</h4>
+                <p>The perfect gift for your loved one, in any amount</p>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-container">
+        
+              <div class="footer-logo">
+                <img src="images/LOGO4.png" alt="YourLogo" width="50px" />
+              </div>
+        
+            
+        
+              <div class="footer-menu">
+                <h3>Quick Links</h3>
+                <br>
+                <ul>
+                  <li><a href="#" title="">Shop</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+        
+              <div class="footer-social">
+                <h3>Follow Us</h3>
+                <br>
+                <ul>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  <li><a href="#">YouTube</a></li>
+                </ul>
+              </div>
+              <div class="footer-newsletter">
+                <h3>Subscribe to Our Newsletter</h3>
+                <form>
+                  <input type="email" placeholder="Enter your email" required />
+                  <button type="submit">Subscribe</button>
+                </form>
+              </div>
+        
+              
+            </div>
+    
+        
+            <div class="footer-bottom">
+              &copy; 2025 YourCompany. All rights reserved.
+            </div>
+          </footer>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const productList = document.getElementById('product-list');
+                const cartSubtotalElem = document.getElementById('cart-subtotal');
+                const cartDiscountElem = document.getElementById('cart-discount');
+                const finalCartTotalElem = document.getElementById('final-cart-total');
+                const itemCountElem = document.getElementById('item-count');
+    
+                /**
+                 * Updates the total price for a single product item based on its quantity.
+                 * @param {HTMLElement} productItem - The div element representing a single product.
+                 */
+                function updateProductTotal(productItem) {
+                    const pricePerUnit = parseFloat(productItem.dataset.price);
+                    const quantityInput = productItem.querySelector('.quantity-input');
+                    const productTotalElem = productItem.querySelector('.product-total');
+    
+                    let quantity = parseInt(quantityInput.value);
+                    if (isNaN(quantity) || quantity < 1) {
+                        quantity = 1; // Ensure quantity is at least 1
+                        quantityInput.value = 1;
+                    }
+    
+                    const total = pricePerUnit * quantity;
+                    productTotalElem.textContent = `$${total.toFixed(2)}`;
+                    updateCartTotals(); // Recalculate overall cart totals
+                }
+    
+                /**
+                 * Calculates and updates the overall cart subtotal, discount, and final total.
+                 */
+                function updateCartTotals() {
+                    let subtotal = 0;
+                    let totalItems = 0;
+                    const productItems = document.querySelectorAll('.product-item');
+    
+                    productItems.forEach(item => {
+                        const pricePerUnit = parseFloat(item.dataset.price);
+                        const quantity = parseInt(item.querySelector('.quantity-input').value);
+                        subtotal += pricePerUnit * quantity;
+                        totalItems += quantity;
+                    });
+    
+                    // Placeholder for discount logic (e.g., from coupon code)
+                    const discount = 0; // For now, no discount
+                    cartDiscountElem.textContent = `$${discount.toFixed(2)}`;
+    
+                    const finalTotal = subtotal - discount;
+    
+                    cartSubtotalElem.textContent = `$${subtotal.toFixed(2)}`;
+                    finalCartTotalElem.textContent = `$${finalTotal.toFixed(2)}`;
+                    itemCountElem.textContent = `(${totalItems} Items in your bag)`;
+                }
+    
+                // Event delegation for quantity buttons
+                productList.addEventListener('click', (event) => {
+                    const target = event.target;
+                    if (target.classList.contains('quantity-btn')) {
+                        const productItem = target.closest('.product-item');
+                        const quantityInput = productItem.querySelector('.quantity-input');
+                        let currentQuantity = parseInt(quantityInput.value);
+    
+                        if (target.classList.contains('minus')) {
+                            if (currentQuantity > 1) {
+                                quantityInput.value = currentQuantity - 1;
+                            }
+                        } else if (target.classList.contains('plus')) {
+                            quantityInput.value = currentQuantity + 1;
+                        }
+                        updateProductTotal(productItem);
+                    }
+                });
+    
+                // Event listener for direct input changes to quantity
+                productList.addEventListener('change', (event) => {
+                    const target = event.target;
+                    if (target.classList.contains('quantity-input')) {
+                        const productItem = target.closest('.product-item');
+                        updateProductTotal(productItem);
+                    }
+                });
+    
+                // Initial calculation when the page loads
+                updateCartTotals();
+            });
+        </script>
+</body>
+</html>

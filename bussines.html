@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /* General Resets and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #e0e0e0; /* Neutral background for hero */
+            color: #333;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            background: #0056b3;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            max-height: 180px;
+            object-fit: contain;
+            margin: 0 auto 15px;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .product-card .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+
+        /* Star Rating Placeholder */
+        .stars {
+            color: #FFD700;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            .product-card {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <main>
+        <section class="hero" style="background-color: #f0f8ff;">
+            <div class="hero-image" style="background-image: url('images/business_hero.jpg');"></div>
+            <div class="hero-content">
+                <h1>Streamline Your Business with Powerful PCs</h1>
+                <p>Explore our range of reliable and efficient business computers designed for productivity and security.</p>
+                <a href="#featured-products" class="btn">Shop Business PCs</a>
+            </div>
+        </section>
+
+        <section class="container" id="featured-products">
+            <h2>Featured Business PCs</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="images/dell_optiplex.jpg" alt="Dell OptiPlex">
+                    <h3>Dell OptiPlex 7000 Series</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.5)
+                    </div>
+                    <p class="price">$999.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="images/hp_prodesk.jpg" alt="HP ProDesk">
+                    <h3>HP ProDesk 600 G6</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4.0)
+                    </div>
+                    <p class="price">$849.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="images/lenovo_thinkcentre.jpg" alt="Lenovo ThinkCentre">
+                    <h3>Lenovo ThinkCentre M90q</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                    </div>
+                    <p class="price">$1150.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="images/microsoft_surface_laptop.jpg" alt="Microsoft Surface Laptop">
+                    <h3>Microsoft Surface Laptop 5</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i> (3.5)
+                    </div>
+                    <p class="price">$1299.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="images/acer_veriton.jpg" alt="Acer Veriton">
+                    <h3>Acer Veriton S Series</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4.0)
+                    </div>
+                    <p class="price">$780.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="images/asus_expertcenter.jpg" alt="Asus ExpertCenter">
+                    <h3>Asus ExpertCenter D500TA</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i> (3.5)
+                    </div>
+                    <p class="price">$749.00</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // No specific JavaScript needed for navigation or complex interactions
+            // since there's no navbar or dynamic elements here.
+            console.log('Business PC page loaded.');
+        });
+    </script>
+</body>
+</html>
